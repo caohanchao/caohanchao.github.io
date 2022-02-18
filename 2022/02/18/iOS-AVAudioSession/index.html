@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="记录成长，总结工作">
-    <meta name="description" content="AVAudioSession AVAudioSession是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说： 设置APP与其他APP是否混音，或者中断、降低其他App声音手机静音下，APP是否可以播放声音指定音频输入或者输出设备是否支持APP录制，是否可以边录制边播放声音中断的优先级（电话接入中断APP音频处理）在APP的运行过程中，AudioSession的配置影响所有的">
+    <meta name="description" content="AVAudioSessionAVAudioSession是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说：  设置APP与其他APP是否混音，或者中断、降低其他App声音 手机静音下，APP是否可以播放声音 指定音频输入或者输出设备 是否支持APP录制，是否可以边录制边播放 声音中断的优先级（电话接入中断APP音频处理）  在APP的运行过程中，AudioSession的配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 音频入门之AVAudioSession">
 <meta property="og:url" content="https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/index.html">
 <meta property="og:site_name" content="新生代农民工的博客">
-<meta property="og:description" content="AVAudioSession AVAudioSession是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说： 设置APP与其他APP是否混音，或者中断、降低其他App声音手机静音下，APP是否可以播放声音指定音频输入或者输出设备是否支持APP录制，是否可以边录制边播放声音中断的优先级（电话接入中断APP音频处理）在APP的运行过程中，AudioSession的配置影响所有的">
+<meta property="og:description" content="AVAudioSessionAVAudioSession是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说：  设置APP与其他APP是否混音，或者中断、降低其他App声音 手机静音下，APP是否可以播放声音 指定音频输入或者输出设备 是否支持APP录制，是否可以边录制边播放 声音中断的优先级（电话接入中断APP音频处理）  在APP的运行过程中，AudioSession的配">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-18T15:57:16.000Z">
-<meta property="article:modified_time" content="2022-02-18T16:05:11.703Z">
+<meta property="article:modified_time" content="2022-02-18T16:11:05.842Z">
 <meta property="article:author" content="新生代农民工">
 <meta property="article:tag" content="Objective-C,swift">
 <meta name="twitter:card" content="summary">
@@ -486,53 +486,282 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p>AVAudioSession</p>
-<p>AVAudioSession是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说：</p>
-<p>设置APP与其他APP是否混音，或者中断、降低其他App声音<br>手机静音下，APP是否可以播放声音<br>指定音频输入或者输出设备<br>是否支持APP录制，是否可以边录制边播放<br>声音中断的优先级（电话接入中断APP音频处理）<br>在APP的运行过程中，AudioSession的配置影响所有的音频活动。你可以查询Audio Session来发现设备的硬件特性。如声道数（channel count）、采样率（sample rate）、和音频输入的可用性（availability of audio unit）</p>
-<p>AVAudioSession 激活</p>
-<p>&#x2F;* 设置为激活或者失活。激活音频会话是一个同步（阻塞）操作 *&#x2F;</p>
+        <h1 id="AVAudioSession"><a href="#AVAudioSession" class="headerlink" title="AVAudioSession"></a>AVAudioSession</h1><p><code>AVAudioSession</code>是苹果用来管理App对音频硬件（I &#x2F; O）的资源使用；比如说：</p>
 <ul>
-<li>(BOOL)setActive:(BOOL)active<br>  error:(NSError * _Nullable <em>)outError;<br>&#x2F;</em> 调用该方法 通知中断的应用程序中断已经结束，它可以恢复播放，仅在会话停用时有效<br> active：NO<br> options：AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation  *&#x2F;</li>
-<li>(BOOL)setActive:(BOOL)active withOptions:(AVAudioSessionSetActiveOptions)options error:(NSError **)outError;<br>AVAudioSession 硬件设置</li>
+<li>设置APP与其他APP是否混音，或者中断、降低其他App声音</li>
+<li>手机静音下，APP是否可以播放声音</li>
+<li>指定音频输入或者输出设备</li>
+<li>是否支持APP录制，是否可以边录制边播放</li>
+<li>声音中断的优先级（电话接入中断APP音频处理）</li>
 </ul>
-<p>&#x2F;* 首选硬件采样率 *&#x2F;</p>
+<p>在APP的运行过程中，AudioSession的配置影响所有的音频活动。你可以查询Audio Session来发现设备的硬件特性。如声道数（channel count）、采样率（sample rate）、和音频输入的可用性（availability of audio unit）</p>
+<h2 id="AVAudioSession-激活"><a href="#AVAudioSession-激活" class="headerlink" title="AVAudioSession 激活"></a>AVAudioSession 激活</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* 设置为激活或者失活。激活音频会话是一个同步（阻塞）操作 */</span><br><span class="line">- (BOOL)setActive:(BOOL)active </span><br><span class="line">        error:(NSError * _Nullable *)outError;</span><br><span class="line">/* 调用该方法 通知中断的应用程序中断已经结束，它可以恢复播放，仅在会话停用时有效</span><br><span class="line"> active：NO</span><br><span class="line"> options：AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation  */</span><br><span class="line">- (BOOL)setActive:(BOOL)active withOptions:(AVAudioSessionSetActiveOptions)options error:(NSError **)outError;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AVAudioSession-硬件设置"><a href="#AVAudioSession-硬件设置" class="headerlink" title="AVAudioSession 硬件设置"></a>AVAudioSession 硬件设置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 首选硬件采样率 */</span><br><span class="line">- (BOOL)setPreferredSampleRate:(double)sampleRate error:(NSError **)outError</span><br><span class="line">/* 首选的硬件IO缓冲区持续时间(以秒为单位) */</span><br><span class="line">- (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError **)outError</span><br><span class="line">// 输入通道数</span><br><span class="line">- (BOOL)setPreferredInputNumberOfChannels:(NSInteger)count error:(NSError **)outError</span><br><span class="line">// 输出通道数</span><br><span class="line">- (BOOL)setPreferredOutputNumberOfChannels:(NSInteger)count error:(NSError **)outError</span><br><span class="line">// 设置立体声方向</span><br><span class="line">- (BOOL)setPreferredInputOrientation:(AVAudioStereoOrientation)orientation error:(NSError **)outError</span><br><span class="line">// 使用此方法可临时覆盖内置扬声器的输出</span><br><span class="line">- (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride error:(NSError **)outError</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置音频输出方式"><a href="#设置音频输出方式" class="headerlink" title="设置音频输出方式"></a>设置音频输出方式</h3><p>当iPhone接入多个外部设备时，AudioSeesion将遵循<em>last-in wins</em>原则（后入为主），即声音将被导向到最后接入的设备。在没有接入任何设备时，一般情况下声音会默认从扬声器发出，但有一个例外：在使用<code>AVAudioSessionCategoryPlayAndRecord</code>这种category下，听筒成为默认的输出设备。<br>如果需要改变扬声器的输出，有以下几种方式：</p>
 <ul>
-<li>(BOOL)setPreferredSampleRate:(double)sampleRate error:(NSError **)outError<br>&#x2F;* 首选的硬件IO缓冲区持续时间(以秒为单位) *&#x2F;</li>
-<li>(BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError **)outError<br>&#x2F;&#x2F; 输入通道数</li>
-<li>(BOOL)setPreferredInputNumberOfChannels:(NSInteger)count error:(NSError **)outError<br>&#x2F;&#x2F; 输出通道数</li>
-<li>(BOOL)setPreferredOutputNumberOfChannels:(NSInteger)count error:(NSError **)outError<br>&#x2F;&#x2F; 设置立体声方向</li>
-<li>(BOOL)setPreferredInputOrientation:(AVAudioStereoOrientation)orientation error:(NSError **)outError<br>&#x2F;&#x2F; 使用此方法可临时覆盖内置扬声器的输出</li>
-<li>(BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride error:(NSError **)outError<br>设置音频输出方式</li>
+<li>方式一：调用音频输出方法 <code>overrideOutputAudioPort:</code> <strong>（这种方式调用更短暂）</strong><br> 如果选择扬声器输出，设置为<code>AVAudioSessionPortOverrideSpeaker</code>;<br> 如果默认状态输出，设置为<code>AVAudioSessionPortOverrideNone</code>;</li>
+<li>方式二：设置<code>AVAudioSessionCategoryOption</code>值<br> 如果选择扬声器输出，设置为<code>AVAudioSessionCategoryOptionDefaultToSpeaker</code>;<br> 如果默认状态输出，不设置;</li>
 </ul>
-<p>当iPhone接入多个外部设备时，AudioSeesion将遵循last-in wins原则（后入为主），即声音将被导向到最后接入的设备。在没有接入任何设备时，一般情况下声音会默认从扬声器发出，但有一个例外：在使用AVAudioSessionCategoryPlayAndRecord这种category下，听筒成为默认的输出设备。 如果需要改变扬声器的输出，有以下几种方式：</p>
-<p>方式一：调用音频输出方法 overrideOutputAudioPort: （这种方式调用更短暂） 如果选择扬声器输出，设置为AVAudioSessionPortOverrideSpeaker; 如果默认状态输出，设置为AVAudioSessionPortOverrideNone;<br>方式二：设置AVAudioSessionCategoryOption值 如果选择扬声器输出，设置为AVAudioSessionCategoryOptionDefaultToSpeaker; 如果默认状态输出，不设置;<br>区别参照苹果文档</p>
-<p>AVAudioSessionCategory</p>
-<p>在AVAudioSession中可以设置Category和Option，每一种Category都对应是否支持以下几种能力：</p>
-<p>Interrupts non-mixable apps audio ：是否打断不支持混音播放的APP<br>Silenced by the Silent switch：是否会被手机静音键开关影响<br>Supports audio input &#x2F; output：是否支持音频录制、播放<br>Category    Play    Record    MixWithOther    Silenced<br>AVAudioSessionCategoryAmbient    ✅    ❌    ✅    ✅<br>AVAudioSessionCategorySoloAmbient    ✅    ❌    ❌    ✅<br>AVAudioSessionCategoryPlayback    ✅    ❌    可选，默认❌    ❌<br>AVAudioSessionCategoryRecord    ❌    ✅    ✅    ❌<br>AVAudioSessionCategoryPlayAndRecord    ✅    ✅    可选，默认❌    ❌<br>AVAudioSessionCategoryAudioProcessing    ❌    ❌    ❌    ❌<br>AVAudioSessionCategoryMultiRoute    ✅    ❌    ✅    ❌<br>AVAudioSessionCategoryAmbient：只支持音频播放，音频播放时会被静音键和锁屏键静音，可以与其他APP混音。<br>AVAudioSessionCategorySoloAmbient： 系统默认，只支持音频播放，音频会被静音键和锁屏键静音，会打断其他APP音频播放。<br>AVAudioSessionCategoryPlayback：支持音频播放，音频不会被静音键和锁屏键静音，适用于音频是主要功能的APP，锁屏后依然可以播放。（后台播放需要开启音频相关的后台支持UIBackgroundModes）<br>AVAudioSessionCategoryRecord ： 只支持音频录制，不支持播放。<br>AVAudioSessionCategoryPlayAndRecord： 支持音频录制和播放，声音在没有外设的情况下，默认为听筒播放。<br>AVAudioSessionCategoryAudioProcessing ： 使用硬件编解码器或信号处理器而不播放或录制音频时使用此类别。<br>AVAudioSessionCategoryMultiRoute： 使用硬件编解码器或信号处理器而不播放或录制音频时使用此类别。<br>&#x2F;* set session category *&#x2F;</p>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/qa/qa1754/_index.html">区别参照苹果文档</a></p>
+<h1 id="AVAudioSessionCategory"><a href="#AVAudioSessionCategory" class="headerlink" title="AVAudioSessionCategory"></a>AVAudioSessionCategory</h1><p>在AVAudioSession中可以设置Category和Option，每一种Category都对应是否支持以下几种能力：</p>
 <ul>
-<li>(BOOL)setCategory:(AVAudioSessionCategory)category error:(NSError **)outError API_AVAILABLE(ios(3.0), watchos(2.0), tvos(9.0)) API_UNAVAILABLE(macos);<br>&#x2F;* set session category with options *&#x2F;</li>
-<li>(BOOL)setCategory:(AVAudioSessionCategory)category withOptions:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(6.0), watchos(2.0), tvos(9.0)) API_UNAVAILABLE(macos);<br>&#x2F;* set session category and mode with options *&#x2F;</li>
-<li>(BOOL)setCategory:(AVAudioSessionCategory)category mode:(AVAudioSessionMode)mode options:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(10.0), watchos(3.0), tvos(10.0)) API_UNAVAILABLE(macos);<br>&#x2F;* set session category, mode, routing sharing policy, and options *&#x2F;</li>
-<li>(BOOL)setCategory:(AVAudioSessionCategory)category mode:(AVAudioSessionMode)mode routeSharingPolicy:(AVAudioSessionRouteSharingPolicy)policy options:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(11.0), tvos(11.0), watchos(5.0)) API_UNAVAILABLE(macos);<br>注意：设置category要考虑设置失败的情况<br>AVAudioSessionMode</li>
+<li><em>Interrupts non-mixable apps audio</em> ：<strong>是否打断不支持混音播放的APP</strong></li>
+<li><em>Silenced by the Silent switch</em>：<strong>是否会被手机静音键开关影响</strong></li>
+<li><em>Supports audio input &#x2F; output</em>：<strong>是否支持音频录制、播放</strong></li>
 </ul>
-<p>AVAudioSessionMode    Category    Scene<br>AVAudioSessionModeDefault    All    默认<br>AVAudioSessionModeVoiceChat    AVAudioSessionCategoryPlayAndRecord    VoIP （语音通话）<br>AVAudioSessionModeGameChat    AVAudioSessionCategoryPlayAndRecord    游戏模式<br>AVAudioSessionModeVideoRecording    AVAudioSessionCategoryRecord、AVAudioSessionCategoryPlayAndRecord    适用于使用摄像头采集视频的应用<br>AVAudioSessionModeMeasurement    AVAudioSessionCategoryRecord、AVAudioSessionCategoryPlayAndRecord    最小化系统<br>AVAudioSessionModeMoviePlayback    AVAudioSessionCategoryPlayback    视频播放<br>AVAudioSessionModeVideoChat    AVAudioSessionCategoryPlayback、AVAudioSessionCategoryPlayAndRecord    视频通话<br>AVAudioSessionModeSpokenAudio    AVAudioSessionCategorySoloAmbient、AVAudioSessionCategoryPlayback、AVAudioSessionCategoryPlayAndRecord、AVAudioSessionCategoryMultiRoute    有声读物<br>AVAudioSessionModeVoicePrompt    -    语音提示<br>AVAudioSessionModeDefault :默认模式 兼容所有category<br>AVAudioSessionModeVoiceChat :适用于语音聊天VoIP<br>AVAudioSessionModeGameChat:适用于游戏模式，不需要主动设置（若不想用GKVoiceChat但希望达到类似功能，可以使用AVAudioSessionModeVoiceChat）<br>AVAudioSessionModeVideoRecording :适用于使用摄像头采集视频的应用<br>AVAudioSessionModeMeasurement :适用于希望将系统提供的用于输入和&#x2F;或输出音频信号的信号处理的影响最小化的应用<br>AVAudioSessionModeMoviePlayback :适用于AVAudioSessionCategoryPlayback下的视频播放<br>AVAudioSessionModeVideoChat :适用于视频聊天 系统会自动配置AVAudioSessionCategoryOptionAllowBluetooth和AVAudioSessionCategoryOptionDefaultToSpeaker<br>AVAudioSessionModeSpokenAudio :当其他应用程序播放短暂的语音提示时，希望自己的音频暂停而不是回避（声音变小）时使用<br>AVAudioSessionModeVoicePrompt :当程序内音频为简单的语音提示时使用。适用于导航中的播报<br>AVAudioSessionCategoryOptions</p>
-<p>AVAudioSessionCategoryOption    Function Describe    Supports Category<br>AVAudioSessionCategoryOptionMixWithOthers    支持混音    AVAudioSessionCategoryPlayback AVAudioSessionCategoryPlayAndRecord AVAudioSessionCategoryMultiRoute<br>AVAudioSessionCategoryOptionDuckOthers    降低其他应用的音量    AVAudioSessionCategoryPlayback AVAudioSessionCategoryPlayAndRecord AVAudioSessionCategoryMultiRoute<br>AVAudioSessionCategoryOptionAllowBluetooth    支持蓝牙音频输入    AVAudioSessionCategoryRecord AVAudioSessionCategoryPlayAndRecord<br>AVAudioSessionCategoryOptionDefaultToSpeaker    设置默认输出到扬声器    AVAudioSessionCategoryPlayAndRecord<br>AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers    音频播放过程中，支持中断其他应用    AVAudioSessionCategoryPlayback AVAudioSessionCategoryPlayAndRecord AVAudioSessionCategoryMultiRoute<br>AVAudioSessionCategoryOptionAllowBluetoothA2DP    支持立体声蓝牙    AVAudioSessionCategoryAmbient AVAudioSessionCategorySoloAmbient AVAudioSessionCategoryPlayback AVAudioSessionCategoryPlayAndRecord<br>AVAudioSessionCategoryOptionAllowAirPlay    支持远程AirPlay    AVAudioSessionCategoryPlayAndRecord<br>AVAudioSessionCategoryOptionMixWithOthers：AVAudioSessionCategoryPlayAndRecord 、AVAudioSessionCategoryMultiRoute默认不设置，若设置后，当程序同时启动音频输入输出时，允许程序后台运行；AVAudioSessionCategoryPlayback默认不设置，若设置后，无论是铃声还是在静音模式下，仍然能够播放<br>AVAudioSessionCategoryOptionDuckOthers：当前session处于active时，其他音频就是回避状态(压低声音) AVAudioSessionCategoryPlayAndRecord、AVAudioSessionCategoryPlayback、AVAudioSessionCategoryMultiRoute 默认不混音，不回避<br>AVAudioSessionCategoryOptionAllowBluetooth：允许将蓝牙作为可用途径。支持AVAudioSessionCategoryPlayAndRecord、AVAudioSessionCategoryRecord<br>AVAudioSessionCategoryOptionDefaultToSpeaker：允许改变音频session默认选择内置扬声器（免提）；仅支持AVAudioSessionCategoryPlayAndRecord<br>AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers：如果设置了这个选项，系统就会将你的音频与其他音频会话混合，但是会中断(并停止)使用AVAudioSessionModeSpokenAudio模式的音频会话；只要会话处于活动状态，它就会暂停来自其他应用程序的音频。音频会话失活后，系统恢复被中断的应用程序的音频。<br>AVAudioSessionCategoryOptionAllowBluetoothA2DP：A2DP是一种立体声、仅输出的配置文件用于更高带宽的音频。如果使用AVAudioSessionCategoryAmbient、AVAudioSessionCategorySoloAmbient或AVAudioSessionCategoryPlayback类别，系统会自动路由到A2DP端口；从iOS 10.0开始，使用AVAudioSessionCategoryPlayAndRecord类别的应用程序也可以将输出路由到配对的蓝牙A2DP设备。要启用此行为，请在设置音频会话的类别时传递此类别选项。<br>AVAudioSessionCategoryOptionAllowAirPlay：设置此选项可使音频会话将音频输出路由到AirPlay设备。设置为AVAudioSessionCategoryPlayAndRecord，则只能显式地设置此选项。对于大多数其他音频会话类别，系统隐式地设置此选项。<br>注意: 如果应用中使用到MPNowPlayingInfoCenter，最好避免设置AVAudioSessionCategoryOptionMixWithOthers；因为一旦设置了这个值之后，那么MPNowPlayingInfoCenter就不能正常显示信息<br>AVAudioSessionRouteSharingPolicy</p>
-<p>路由策略：</p>
-<p>AVAudioSessionRouteSharingPolicyDefault 遵循正常的规则路由音频输出<br>AVAudioSessionRouteSharingPolicyLongFormAudio 将输出路由到共享的长格式音频输出<br>AVAudioSessionRouteSharingPolicyLongForm 已废弃<br>AVAudioSessionRouteSharingPolicyIndependent 应用程序不应试图直接设置此值。在iOS上，当路由选择器UI用于将视频定向到无线路由时，系统将设置此值。<br>AVAudioSessionRouteSharingPolicyLongFormVideo 将输出路由到共享的长格式视频输出（使用此策略的应用程序在其Info.plist中设置AVInitialRouteSharingPolicy键）<br>AVAudioSessionNotification</p>
-<p>AVAudioSession有三种不同的通知：</p>
-<p>AVAudioSessionInterruptionNotification：系统中断响应通知<br>AVAudioSessionInterruptionNotification：音频线路变更通知<br>AVAudioSessionSilenceSecondaryAudioHintNotification：其他应用音频状态提示通知<br>AVAudioSessionInterruptionNotification</p>
-<p>当App内音频被中断，系统会将AudioSession置为失活状态，音频也会因此立即停止。当一个别的App的AudioSession被激活并且它的类别未设置与系统类别或你应用程序类别混合时，中断就会发生。你的应用程序在收到中断通知后应该保存当时的状态，以及更新用户界面等相关操作。通过注册AVAudioSessionInterruptionNotification通知，可以处理中断的开始和结束。</p>
-<p>&#x2F;* keys for AVAudioSessionInterruptionNotification <em>&#x2F;<br>&#x2F;</em> Value is an NSNumber representing an AVAudioSessionInterruptionType <em>&#x2F;<br>AVAudioSessionInterruptionTypeKey<br>typedef NS_ENUM(NSUInteger, AVAudioSessionInterruptionType)<br>{<br>    AVAudioSessionInterruptionTypeBegan &#x3D; 1,  &#x2F;</em> the system has interrupted your audio session <em>&#x2F;<br>    AVAudioSessionInterruptionTypeEnded &#x3D; 0,  &#x2F;</em> the interruption has ended *&#x2F;<br>};</p>
-<p>&#x2F;* Only present for end interruption events.  Value is of type AVAudioSessionInterruptionOptions.*&#x2F;<br>AVAudioSessionInterruptionOptionKey<br>typedef NS_OPTIONS(NSUInteger, AVAudioSessionInterruptionOptions)<br>{<br>    AVAudioSessionInterruptionOptionShouldResume &#x3D; 1<br>};<br>提示：这里的通知的中断开始和中断结束不一定都会出现（苹果文档中有提到）<br>AVAudioSessionRouteChangeNotification</p>
-<p>当用户连接或者断开音频输入，输出设备时（插拔耳机、或者蓝牙耳机的断开、连接），音频线路发生变更，通过注册AVAudioSessionRouteChangeNotification通知，可以在音频线路发生变更时做出相应处理。</p>
-<p>&#x2F;* keys for AVAudioSessionRouteChangeNotification <em>&#x2F;<br>&#x2F;</em> value is an NSNumber representing an AVAudioSessionRouteChangeReason *&#x2F;<br>AVAudioSessionRouteChangeReasonKey<br>typedef NS_ENUM(NSUInteger, AVAudioSessionRouteChangeReason)<br>{<br>    AVAudioSessionRouteChangeReasonUnknown &#x3D; 0,<br>    AVAudioSessionRouteChangeReasonNewDeviceAvailable &#x3D; 1,     &#x2F;&#x2F;设备可用（耳机插好）<br>    AVAudioSessionRouteChangeReasonOldDeviceUnavailable &#x3D; 2, &#x2F;&#x2F;设备不可用（耳机被拔下）<br>    AVAudioSessionRouteChangeReasonCategoryChange &#x3D; 3, &#x2F;&#x2F;  设置的分类被改变<br>    AVAudioSessionRouteChangeReasonOverride &#x3D; 4,            &#x2F;&#x2F;  路由被覆盖<br>    AVAudioSessionRouteChangeReasonWakeFromSleep &#x3D; 6,  &#x2F;&#x2F; 设备被激活<br>    AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory &#x3D; 7, &#x2F;&#x2F;当前类别没有路由时返回<br>    AVAudioSessionRouteChangeReasonRouteConfigurationChange &#x3D; 8 &#x2F;&#x2F; added in iOS 7<br>};<br>AVAudioSessionSilenceSecondaryAudioHintNotification</p>
-<p>当来自其他应用的主音频启动，或者停止时，通过注册AVAudioSessionSilenceSecondaryAudioHintNotification通知，前台应用可以作为启动或者禁用次要音频的提示；</p>
-<p>&#x2F;* keys for AVAudioSessionSilenceSecondaryAudioHintNotification <em>&#x2F;<br>&#x2F;</em> value is an NSNumber representing an AVAudioSessionSilenceSecondaryAudioHintType <em>&#x2F;<br>AVAudioSessionSilenceSecondaryAudioHintTypeKey<br>typedef NS_ENUM(NSUInteger, AVAudioSessionSilenceSecondaryAudioHintType)<br>{<br>    AVAudioSessionSilenceSecondaryAudioHintTypeBegin &#x3D; 1,  &#x2F;</em> the system is indicating that another application’s primary audio has started <em>&#x2F;<br>    AVAudioSessionSilenceSecondaryAudioHintTypeEnd &#x3D; 0,    &#x2F;</em> the system is indicating that another application’s primary audio has stopped *&#x2F;<br>};<br>AVAudioSession 常用音频建议</p>
-<p>使用AVAudioSessionCategoryRecord，AVAudioSessionCategoryPlayAndRecord，AVAudioSessionCategoryPlayback类别的APP，苹果建议的准则如下：</p>
-<p>当应用程序进入前台时，请等待用户按下“播放”或“录制”按钮，然后再激活音频会话。<br>当应用程序处于前台时，除非中断，否则请保持音频会话处于活动状态。<br>如果应用程序在过渡到后台时没有活跃的播放或录制音频，请停用其音频会话。这样可以防止其音频会话被另一个不可混合的应用程序中断，或者在应用程序被系统挂起时响应中断其音频会话。<br>在被中断后更新用户界面的播放或录制到暂停。请勿停用音频会话。<br>观察AVAudioSessionInterruptionNotification有关音频会话中断的通知类型。中断结束后，请勿再次开始播放或录制音频，除非该应用在中断之前就已经开始了。<br>如果路由更改是由拔出事件引起的，则暂停播放或录制，但请保持音频会话处于活动状态。<br>假设应用程序的音频会话从挂起状态转换为前台状态时处于失活状态。当用户按下“播放”或“录制”按钮时，重新激活音频会话。<br>确保UIBackgroundModes已设置音频标志。<br>注册远程控制事件（请参阅参考资料MPRemoteCommandCenter），并为您的媒体提供适当的“正在播放”信息（请参阅参考资料MPNowPlayingInfoCenter）。<br>使用一个MPVolumeView对象显示系统音量滑块和路线选择器。<br>使用后台任务而不是静默播放流，以防止应用程序被暂停。<br>要求用户许可使用该requestRecordPermission:方法记录输入。不要依靠操作系统来提示用户。<br>对于录制应用程序，请使用AVAudioSessionCategoryPlayAndRecord类别而不是AVAudioSessionCategoryRecord类别。“仅记录”类别几乎使所有系统输出静音，并且通常对于大多数应用程序而言过于严格。 详情可以参照苹果指南<br>AVAudioSession 声音常用处理</p>
-<p>播放应用内的音频时暂停外部音乐<br>[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:0 error:&amp;error];<br>[[AudioSession sharedInstance] setActive:YES error:&amp;error];<br>[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&amp;error];<br>混音播放外部音频，同时插播一条应用内的语音（播放语音时，外部音频降低音量，播放语音完毕后，外部音频恢复音量）<br>&#x2F;* start *&#x2F;<br>[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:&amp;error];</p>
-<p>&#x2F;* end *&#x2F;<br>[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&amp;error];<br>唤起其他App播放<br>[[AudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&amp;error];<br>参考文档</p>
-<p>Audio Session Programming Guide<br>AVAudioSession Class Reference<br>人机交互准则</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Play</th>
+<th>Record</th>
+<th>MixWithOther</th>
+<th>Silenced</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AVAudioSessionCategoryAmbient</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategorySoloAmbient</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryPlayback</td>
+<td>✅</td>
+<td>❌</td>
+<td>可选，默认❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryRecord</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryPlayAndRecord</td>
+<td>✅</td>
+<td>✅</td>
+<td>可选，默认❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryAudioProcessing</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryMultiRoute</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>AVAudioSessionCategoryAmbient</code>：只支持音频播放，音频播放时会被静音键和锁屏键静音，可以与其他APP混音。</li>
+<li><code>AVAudioSessionCategorySoloAmbient</code>： 系统默认，只支持音频播放，音频会被静音键和锁屏键静音，会打断其他APP音频播放。</li>
+<li><code>AVAudioSessionCategoryPlayback</code>：支持音频播放，音频不会被静音键和锁屏键静音，适用于音频是主要功能的APP，锁屏后依然可以播放。（后台播放需要开启音频相关的后台支持<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/iPhoneOSKeys.html#//apple_ref/doc/uid/TP40009252-SW22">UIBackgroundModes</a>）</li>
+<li><code>AVAudioSessionCategoryRecord</code> ： 只支持音频录制，不支持播放。</li>
+<li><code>AVAudioSessionCategoryPlayAndRecord</code>： 支持音频录制和播放，声音在没有外设的情况下，默认为听筒播放。</li>
+<li><code>AVAudioSessionCategoryAudioProcessing</code> ： 使用硬件编解码器或信号处理器而不播放或录制音频时使用此类别。</li>
+<li><code>AVAudioSessionCategoryMultiRoute</code>： 使用硬件编解码器或信号处理器而不播放或录制音频时使用此类别。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/* set session category */</span><br><span class="line">- (BOOL)setCategory:(AVAudioSessionCategory)category error:(NSError **)outError API_AVAILABLE(ios(3.0), watchos(2.0), tvos(9.0)) API_UNAVAILABLE(macos);</span><br><span class="line">/* set session category with options */</span><br><span class="line">- (BOOL)setCategory:(AVAudioSessionCategory)category withOptions:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(6.0), watchos(2.0), tvos(9.0)) API_UNAVAILABLE(macos);</span><br><span class="line">/* set session category and mode with options */</span><br><span class="line">- (BOOL)setCategory:(AVAudioSessionCategory)category mode:(AVAudioSessionMode)mode options:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(10.0), watchos(3.0), tvos(10.0)) API_UNAVAILABLE(macos);</span><br><span class="line">/* set session category, mode, routing sharing policy, and options */</span><br><span class="line">- (BOOL)setCategory:(AVAudioSessionCategory)category mode:(AVAudioSessionMode)mode routeSharingPolicy:(AVAudioSessionRouteSharingPolicy)policy options:(AVAudioSessionCategoryOptions)options error:(NSError **)outError API_AVAILABLE(ios(11.0), tvos(11.0), watchos(5.0)) API_UNAVAILABLE(macos);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：设置category要考虑设置失败的情况</p>
+</blockquote>
+<h1 id="AVAudioSessionMode"><a href="#AVAudioSessionMode" class="headerlink" title="AVAudioSessionMode"></a>AVAudioSessionMode</h1><table>
+<thead>
+<tr>
+<th align="center">AVAudioSessionMode</th>
+<th align="center">Category</th>
+<th align="center">Scene</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AVAudioSessionModeDefault</td>
+<td align="center">All</td>
+<td align="center">默认</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeVoiceChat</td>
+<td align="center">AVAudioSessionCategoryPlayAndRecord</td>
+<td align="center">VoIP （语音通话）</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeGameChat</td>
+<td align="center">AVAudioSessionCategoryPlayAndRecord</td>
+<td align="center">游戏模式</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeVideoRecording</td>
+<td align="center">AVAudioSessionCategoryRecord、AVAudioSessionCategoryPlayAndRecord</td>
+<td align="center">适用于使用摄像头采集视频的应用</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeMeasurement</td>
+<td align="center">AVAudioSessionCategoryRecord、AVAudioSessionCategoryPlayAndRecord</td>
+<td align="center">最小化系统</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeMoviePlayback</td>
+<td align="center">AVAudioSessionCategoryPlayback</td>
+<td align="center">视频播放</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeVideoChat</td>
+<td align="center">AVAudioSessionCategoryPlayback、AVAudioSessionCategoryPlayAndRecord</td>
+<td align="center">视频通话</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeSpokenAudio</td>
+<td align="center">AVAudioSessionCategorySoloAmbient、AVAudioSessionCategoryPlayback、AVAudioSessionCategoryPlayAndRecord、AVAudioSessionCategoryMultiRoute</td>
+<td align="center">有声读物</td>
+</tr>
+<tr>
+<td align="center">AVAudioSessionModeVoicePrompt</td>
+<td align="center">-</td>
+<td align="center">语音提示</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>AVAudioSessionModeDefault</code> :默认模式 兼容所有category</li>
+<li><code>AVAudioSessionModeVoiceChat</code> :适用于语音聊天VoIP</li>
+<li><code>AVAudioSessionModeGameChat</code>:适用于游戏模式，不需要主动设置（若不想用GKVoiceChat但希望达到类似功能，可以使用AVAudioSessionModeVoiceChat）</li>
+<li><code>AVAudioSessionModeVideoRecording</code> :适用于使用摄像头采集视频的应用</li>
+<li><code>AVAudioSessionModeMeasurement</code> :适用于希望将系统提供的用于输入和&#x2F;或输出音频信号的信号处理的影响最小化的应用</li>
+<li><code>AVAudioSessionModeMoviePlayback</code> :适用于<code>AVAudioSessionCategoryPlayback</code>下的视频播放</li>
+<li><code>AVAudioSessionModeVideoChat</code> :适用于视频聊天 系统会自动配置<code>AVAudioSessionCategoryOptionAllowBluetooth</code>和<code>AVAudioSessionCategoryOptionDefaultToSpeaker</code></li>
+<li><code>AVAudioSessionModeSpokenAudio</code> :当其他应用程序播放短暂的语音提示时，希望自己的音频暂停而不是回避（声音变小）时使用</li>
+<li><code>AVAudioSessionModeVoicePrompt</code> :当程序内音频为简单的语音提示时使用。适用于导航中的播报</li>
+</ul>
+<h1 id="AVAudioSessionCategoryOptions"><a href="#AVAudioSessionCategoryOptions" class="headerlink" title="AVAudioSessionCategoryOptions"></a>AVAudioSessionCategoryOptions</h1><table>
+<thead>
+<tr>
+<th>AVAudioSessionCategoryOption</th>
+<th>Function Describe</th>
+<th>Supports Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AVAudioSessionCategoryOptionMixWithOthers</td>
+<td>支持混音</td>
+<td><code>AVAudioSessionCategoryPlayback</code>  <code>AVAudioSessionCategoryPlayAndRecord</code>  <code>AVAudioSessionCategoryMultiRoute</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionDuckOthers</td>
+<td>降低其他应用的音量</td>
+<td><code>AVAudioSessionCategoryPlayback</code>  <code>AVAudioSessionCategoryPlayAndRecord</code>  <code>AVAudioSessionCategoryMultiRoute</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionAllowBluetooth</td>
+<td>支持蓝牙音频输入</td>
+<td><code>AVAudioSessionCategoryRecord</code> <code>AVAudioSessionCategoryPlayAndRecord</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionDefaultToSpeaker</td>
+<td>设置默认输出到扬声器</td>
+<td><code>AVAudioSessionCategoryPlayAndRecord</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers</td>
+<td>音频播放过程中，支持中断其他应用</td>
+<td><code>AVAudioSessionCategoryPlayback</code>  <code>AVAudioSessionCategoryPlayAndRecord</code>  <code>AVAudioSessionCategoryMultiRoute</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionAllowBluetoothA2DP</td>
+<td>支持立体声蓝牙</td>
+<td><code>AVAudioSessionCategoryAmbient</code> <code>AVAudioSessionCategorySoloAmbient</code> <code>AVAudioSessionCategoryPlayback</code> <code>AVAudioSessionCategoryPlayAndRecord</code></td>
+</tr>
+<tr>
+<td>AVAudioSessionCategoryOptionAllowAirPlay</td>
+<td>支持远程AirPlay</td>
+<td><code>AVAudioSessionCategoryPlayAndRecord</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>AVAudioSessionCategoryOptionMixWithOthers</code>：<em>AVAudioSessionCategoryPlayAndRecord</em> 、<em>AVAudioSessionCategoryMultiRoute</em>默认不设置，若设置后，当程序同时启动音频输入输出时，允许程序后台运行；<em>AVAudioSessionCategoryPlayback</em>默认不设置，若设置后，无论是铃声还是在静音模式下，仍然能够播放</li>
+<li><code>AVAudioSessionCategoryOptionDuckOthers</code>：当前session处于active时，其他音频就是回避状态(压低声音) <em>AVAudioSessionCategoryPlayAndRecord</em>、<em>AVAudioSessionCategoryPlayback</em>、<em>AVAudioSessionCategoryMultiRoute</em> 默认不混音，不回避</li>
+<li><code>AVAudioSessionCategoryOptionAllowBluetooth</code>：允许将蓝牙作为可用途径。支持<em>AVAudioSessionCategoryPlayAndRecord</em>、<em>AVAudioSessionCategoryRecord</em></li>
+<li><code>AVAudioSessionCategoryOptionDefaultToSpeaker</code>：允许改变音频session默认选择内置扬声器（免提）；仅支持<em>AVAudioSessionCategoryPlayAndRecord</em></li>
+<li><code>AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers</code>：如果设置了这个选项，系统就会将你的音频与其他音频会话混合，但是会中断(并停止)使用<em>AVAudioSessionModeSpokenAudio</em>模式的音频会话；只要会话处于活动状态，它就会暂停来自其他应用程序的音频。音频会话失活后，系统恢复被中断的应用程序的音频。</li>
+<li><code>AVAudioSessionCategoryOptionAllowBluetoothA2DP</code>：A2DP是一种立体声、仅输出的配置文件用于更高带宽的音频。如果使用AVAudioSessionCategoryAmbient、AVAudioSessionCategorySoloAmbient或AVAudioSessionCategoryPlayback类别，系统会自动路由到A2DP端口；从iOS 10.0开始，使用AVAudioSessionCategoryPlayAndRecord类别的应用程序也可以将输出路由到配对的蓝牙A2DP设备。要启用此行为，请在设置音频会话的类别时传递此类别选项。</li>
+<li><code>AVAudioSessionCategoryOptionAllowAirPlay</code>：设置此选项可使音频会话将音频输出路由到AirPlay设备。设置为AVAudioSessionCategoryPlayAndRecord，则只能显式地设置此选项。对于大多数其他音频会话类别，系统隐式地设置此选项。<blockquote>
+<p><strong>注意</strong>: 如果应用中使用到MPNowPlayingInfoCenter，最好避免设置<em>AVAudioSessionCategoryOptionMixWithOthers</em>；因为一旦设置了这个值之后，那么MPNowPlayingInfoCenter就不能正常显示信息</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="AVAudioSessionRouteSharingPolicy"><a href="#AVAudioSessionRouteSharingPolicy" class="headerlink" title="AVAudioSessionRouteSharingPolicy"></a>AVAudioSessionRouteSharingPolicy</h1><p><strong>路由策略：</strong></p>
+<ul>
+<li><em><strong>AVAudioSessionRouteSharingPolicyDefault</strong></em> 遵循正常的规则路由音频输出</li>
+<li><em><strong>AVAudioSessionRouteSharingPolicyLongFormAudio</strong></em> 将输出路由到共享的长格式音频输出</li>
+<li><em><strong><del>AVAudioSessionRouteSharingPolicyLongForm</del></strong></em> 已废弃</li>
+<li><em><strong>AVAudioSessionRouteSharingPolicyIndependent</strong></em> 应用程序不应试图直接设置此值。在iOS上，当路由选择器UI用于将视频定向到无线路由时，系统将设置此值。</li>
+<li><em><strong>AVAudioSessionRouteSharingPolicyLongFormVideo</strong></em> 将输出路由到共享的长格式视频输出（使用此策略的应用程序在其Info.plist中设置AVInitialRouteSharingPolicy键）</li>
+</ul>
+<h1 id="AVAudioSessionNotification"><a href="#AVAudioSessionNotification" class="headerlink" title="AVAudioSessionNotification"></a>AVAudioSessionNotification</h1><p>AVAudioSession有三种不同的通知：</p>
+<ul>
+<li><em><strong>AVAudioSessionInterruptionNotification</strong></em>：系统中断响应通知 </li>
+<li><em><strong>AVAudioSessionInterruptionNotification</strong></em>：音频线路变更通知  </li>
+<li><em><strong>AVAudioSessionSilenceSecondaryAudioHintNotification</strong></em>：其他应用音频状态提示通知</li>
+</ul>
+<h2 id="AVAudioSessionInterruptionNotification"><a href="#AVAudioSessionInterruptionNotification" class="headerlink" title="AVAudioSessionInterruptionNotification"></a>AVAudioSessionInterruptionNotification</h2><p>当App内音频被中断，系统会将AudioSession置为失活状态，音频也会因此立即停止。当一个别的App的AudioSession被激活并且它的类别未设置与系统类别或你应用程序类别混合时，中断就会发生。你的应用程序在收到中断通知后应该保存当时的状态，以及更新用户界面等相关操作。通过注册<code>AVAudioSessionInterruptionNotification</code>通知，可以处理中断的开始和结束。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* keys for AVAudioSessionInterruptionNotification */</span><br><span class="line">/* Value is an NSNumber representing an AVAudioSessionInterruptionType */</span><br><span class="line">AVAudioSessionInterruptionTypeKey</span><br><span class="line">typedef NS_ENUM(NSUInteger, AVAudioSessionInterruptionType)</span><br><span class="line">&#123;</span><br><span class="line">	AVAudioSessionInterruptionTypeBegan = 1,  /* the system has interrupted your audio session */</span><br><span class="line">	AVAudioSessionInterruptionTypeEnded = 0,  /* the interruption has ended */</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line">/* Only present for end interruption events.  Value is of type AVAudioSessionInterruptionOptions.*/</span><br><span class="line">AVAudioSessionInterruptionOptionKey</span><br><span class="line">typedef NS_OPTIONS(NSUInteger, AVAudioSessionInterruptionOptions)</span><br><span class="line">&#123;</span><br><span class="line">	AVAudioSessionInterruptionOptionShouldResume = 1</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>提示</strong>：这里的通知的中断开始和中断结束不一定都会出现（苹果文档中有提到）</p>
+</blockquote>
+<h2 id="AVAudioSessionRouteChangeNotification"><a href="#AVAudioSessionRouteChangeNotification" class="headerlink" title="AVAudioSessionRouteChangeNotification"></a>AVAudioSessionRouteChangeNotification</h2><p>当用户连接或者断开音频输入，输出设备时（插拔耳机、或者蓝牙耳机的断开、连接），音频线路发生变更，通过注册<code>AVAudioSessionRouteChangeNotification</code>通知，可以在音频线路发生变更时做出相应处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* keys for AVAudioSessionRouteChangeNotification */</span><br><span class="line">/* value is an NSNumber representing an AVAudioSessionRouteChangeReason */</span><br><span class="line">AVAudioSessionRouteChangeReasonKey</span><br><span class="line">typedef NS_ENUM(NSUInteger, AVAudioSessionRouteChangeReason)</span><br><span class="line">&#123;</span><br><span class="line">	AVAudioSessionRouteChangeReasonUnknown = 0,</span><br><span class="line">	AVAudioSessionRouteChangeReasonNewDeviceAvailable = 1, 	//设备可用（耳机插好）</span><br><span class="line">	AVAudioSessionRouteChangeReasonOldDeviceUnavailable = 2, //设备不可用（耳机被拔下）</span><br><span class="line">	AVAudioSessionRouteChangeReasonCategoryChange = 3, //  设置的分类被改变</span><br><span class="line">	AVAudioSessionRouteChangeReasonOverride = 4,			//  路由被覆盖</span><br><span class="line">	AVAudioSessionRouteChangeReasonWakeFromSleep = 6,  // 设备被激活</span><br><span class="line">	AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory = 7, //当前类别没有路由时返回</span><br><span class="line">	AVAudioSessionRouteChangeReasonRouteConfigurationChange = 8 // added in iOS 7</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AVAudioSessionSilenceSecondaryAudioHintNotification"><a href="#AVAudioSessionSilenceSecondaryAudioHintNotification" class="headerlink" title="AVAudioSessionSilenceSecondaryAudioHintNotification"></a>AVAudioSessionSilenceSecondaryAudioHintNotification</h2><p>当来自其他应用的主音频启动，或者停止时，通过注册<code>AVAudioSessionSilenceSecondaryAudioHintNotification</code>通知，前台应用可以作为启动或者禁用次要音频的提示；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/* keys for AVAudioSessionSilenceSecondaryAudioHintNotification */</span><br><span class="line">/* value is an NSNumber representing an AVAudioSessionSilenceSecondaryAudioHintType */</span><br><span class="line">AVAudioSessionSilenceSecondaryAudioHintTypeKey </span><br><span class="line">typedef NS_ENUM(NSUInteger, AVAudioSessionSilenceSecondaryAudioHintType)</span><br><span class="line">&#123;</span><br><span class="line">	AVAudioSessionSilenceSecondaryAudioHintTypeBegin = 1,  /* the system is indicating that another application&#x27;s primary audio has started */</span><br><span class="line">	AVAudioSessionSilenceSecondaryAudioHintTypeEnd = 0,    /* the system is indicating that another application&#x27;s primary audio has stopped */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="AVAudioSession-常用音频建议"><a href="#AVAudioSession-常用音频建议" class="headerlink" title="AVAudioSession 常用音频建议"></a>AVAudioSession 常用音频建议</h1><p>使用<code>AVAudioSessionCategoryRecord</code>，<code>AVAudioSessionCategoryPlayAndRecord</code>，<code>AVAudioSessionCategoryPlayback</code>类别的APP，苹果建议的准则如下：</p>
+<ul>
+<li>当应用程序进入前台时，请等待用户按下“播放”或“录制”按钮，然后再激活音频会话。</li>
+<li>当应用程序处于前台时，除非中断，否则请保持音频会话处于活动状态。</li>
+<li>如果应用程序在过渡到后台时没有活跃的播放或录制音频，请停用其音频会话。这样可以防止其音频会话被另一个不可混合的应用程序中断，或者在应用程序被系统挂起时响应中断其音频会话。</li>
+<li>在被中断后更新用户界面的播放或录制到暂停。请勿停用音频会话。</li>
+<li>观察<code>AVAudioSessionInterruptionNotification</code>有关音频会话中断的通知类型。中断结束后，请勿再次开始播放或录制音频，除非该应用在中断之前就已经开始了。</li>
+<li>如果路由更改是由拔出事件引起的，则暂停播放或录制，但请保持音频会话处于活动状态。</li>
+<li>假设应用程序的音频会话从挂起状态转换为前台状态时处于失活状态。当用户按下“播放”或“录制”按钮时，重新激活音频会话。</li>
+<li>确保<code>UIBackgroundModes</code>已设置音频标志。</li>
+<li>注册远程控制事件（请参阅参考资料<code>MPRemoteCommandCenter</code>），并为您的媒体提供适当的“正在播放”信息（请参阅参考资料<code>MPNowPlayingInfoCenter</code>）。</li>
+<li>使用一个<code>MPVolumeView</code>对象显示系统音量滑块和路线选择器。</li>
+<li>使用后台任务而不是静默播放流，以防止应用程序被暂停。</li>
+<li>要求用户许可使用该<code>requestRecordPermission:</code>方法记录输入。不要依靠操作系统来提示用户。</li>
+<li>对于录制应用程序，请使用<code>AVAudioSessionCategoryPlayAndRecord</code>类别而不是<code>AVAudioSessionCategoryRecord</code>类别。“仅记录”类别几乎使所有系统输出静音，并且通常对于大多数应用程序而言过于严格。<br>详情<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/AudioGuidelinesByAppType/AudioGuidelinesByAppType.html#//apple_ref/doc/uid/TP40007875-CH11-SW1">可以参照苹果指南</a></li>
+</ul>
+<h1 id="AVAudioSession-声音常用处理"><a href="#AVAudioSession-声音常用处理" class="headerlink" title="AVAudioSession 声音常用处理"></a>AVAudioSession 声音常用处理</h1><ul>
+<li><p>播放应用内的音频时暂停外部音乐</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:0 error:&amp;error];</span><br><span class="line">[[AudioSession sharedInstance] setActive:YES error:&amp;error];</span><br><span class="line">[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&amp;error];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>混音播放外部音频，同时插播一条应用内的语音（播放语音时，外部音频降低音量，播放语音完毕后，外部音频恢复音量）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/* start */ </span><br><span class="line">[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:&amp;error];</span><br><span class="line"></span><br><span class="line">/* end */ </span><br><span class="line">[[AudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&amp;error];</span><br></pre></td></tr></table></figure></li>
+<li><p>唤起其他App播放</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[AudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&amp;error];</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>参考文档</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/Introduction/Introduction.html">Audio Session Programming Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/avfoundation/avaudiosessioncategoryoptions/avaudiosessioncategoryoptionallowairplay?language=objc">AVAudioSession Class Reference</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/design/human-interface-guidelines/ios/user-interaction/audio/">人机交互准则</a></li>
+</ul>
 
     </article>
     <!-- license -->
@@ -541,7 +770,7 @@
             <p>原文作者：<a href="https://caohanchao.github.io">新生代农民工</a>
             <p>原文链接：<a href="https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/">https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/</a>
             <p>发表日期：<a href="https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/">February 18th 2022, 11:57:16 pm</a>
-            <p>更新日期：<a href="https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/">February 19th 2022, 12:05:11 am</a>
+            <p>更新日期：<a href="https://caohanchao.github.io/2022/02/18/iOS-AVAudioSession/">February 19th 2022, 12:11:05 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -689,7 +918,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSession"><span class="toc-number">1.</span> <span class="toc-text">AVAudioSession</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVAudioSession-%E6%BF%80%E6%B4%BB"><span class="toc-number">1.1.</span> <span class="toc-text">AVAudioSession 激活</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVAudioSession-%E7%A1%AC%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">AVAudioSession 硬件设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%9F%B3%E9%A2%91%E8%BE%93%E5%87%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">设置音频输出方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSessionCategory"><span class="toc-number">2.</span> <span class="toc-text">AVAudioSessionCategory</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSessionMode"><span class="toc-number">3.</span> <span class="toc-text">AVAudioSessionMode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSessionCategoryOptions"><span class="toc-number">4.</span> <span class="toc-text">AVAudioSessionCategoryOptions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSessionRouteSharingPolicy"><span class="toc-number">5.</span> <span class="toc-text">AVAudioSessionRouteSharingPolicy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSessionNotification"><span class="toc-number">6.</span> <span class="toc-text">AVAudioSessionNotification</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVAudioSessionInterruptionNotification"><span class="toc-number">6.1.</span> <span class="toc-text">AVAudioSessionInterruptionNotification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVAudioSessionRouteChangeNotification"><span class="toc-number">6.2.</span> <span class="toc-text">AVAudioSessionRouteChangeNotification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVAudioSessionSilenceSecondaryAudioHintNotification"><span class="toc-number">6.3.</span> <span class="toc-text">AVAudioSessionSilenceSecondaryAudioHintNotification</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSession-%E5%B8%B8%E7%94%A8%E9%9F%B3%E9%A2%91%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.</span> <span class="toc-text">AVAudioSession 常用音频建议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AVAudioSession-%E5%A3%B0%E9%9F%B3%E5%B8%B8%E7%94%A8%E5%A4%84%E7%90%86"><span class="toc-number">8.</span> <span class="toc-text">AVAudioSession 声音常用处理</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
