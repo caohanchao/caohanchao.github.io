@@ -446,6 +446,49 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/02/19/iOS-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%96%B9%E6%A1%88/">
+                
+                <span class="abstract-title-text">iOS 组件化方案</span>
+            </a>
+            <div class="abstract-content">
+                前言现在很多公司在业务扩张到一定程度或者商业模式跑通之后就会考虑到组件化方案，而组件化方案目前主流的做法就是以下三种，这里我们将就组件化方案谈谈自己的思考。
+
+URL Scheme
+Protocol Class
+Target Action
+
+URL Scheme 方案实现方式：在启动时，注册组件提供的服务（注册URL以及关联服务Block），然后在使用时，通过URL直接调用（openURL）；
+
+使用URL处理本地跳转逻辑
+注册组件，内存中维护URL注册服务
+
+优点：
+统一了不同平台的客户端在跳转上的不一致
+处理网页跳转上较为方便
+
+缺点：
+url参数受限（例如非字符串类型，UIImag...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/19">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/19</span>
+                </div>
+                <!-- tags -->
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/02/18/iOS-AVAudioSession/">
                 
                 <span class="abstract-title-text">iOS 音频入门之AVAudioSession</span>
@@ -693,7 +736,14 @@ Run server1$ hexo ...
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
         
         
     
@@ -702,7 +752,7 @@ Run server1$ hexo ...
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -713,13 +763,19 @@ Run server1$ hexo ...
         
             
             
-            <div class="archive-year"> Invalid date </div>
+            <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
         
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span>
-            <a class="archive-post-title" href="/2022/02/18/hello-world/">Hello World</a>
+            <span class="archive-post-date">02/19</span>
+            <a class="archive-post-title" href="/2022/02/19/iOS-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%96%B9%E6%A1%88/">iOS 组件化方案</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/2022/02/18/iOS-AVAudioSession/">iOS 音频入门之AVAudioSession</a>
         </li>
     
         
@@ -728,13 +784,13 @@ Run server1$ hexo ...
                 
                 </ul>
             
-            <div class="archive-year"> 2022 </div>
+            <div class="archive-year"> Invalid date </div>
             <ul class="year-list">
             
         
         <li class="archive-post-item">
-            <span class="archive-post-date">02/18</span>
-            <a class="archive-post-title" href="/2022/02/18/iOS-AVAudioSession/">iOS 音频入门之AVAudioSession</a>
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2022/02/18/hello-world/">Hello World</a>
         </li>
     
     </div>
