@@ -447,6 +447,52 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/2022/02/26/%E4%BA%86%E8%A7%A3-Mach-O%E6%96%87%E4%BB%B6/">
+                
+                <span class="abstract-title-text">了解 Mach-O文件</span>
+            </a>
+            <div class="abstract-content">
+                <h1 id="Mach-O文件"><a href="#Mach-O文件" class="headerlink" title="Mach-O文件"></a>Mach-O文件</h1><p>想要一个应用程序运行起来，那么它的可执行文件格式一定要被操作系统所理解。在<code>Windows</code>系统的可执行文件是<code>PE</code>，而在<code>OS X</code>和<code>iOS</code> 中的可执行文件是<code>Mach-O</code>。</p>
+<p>那么<code>Mach-O</code>是怎么生成的呢？苹果公司目前使用的编译器是LLVM，在程序编译时，编译器会对每个文件进行编译，然后生成<code>Mach-O</code>文件，而后链接器会将项目中的多个 <code>Mach-O</code> 文件合并成一个，最终的这个就是我们的可执行<code>Mach-O</code>文件.</p>
+<p>那么Mach-O 文件里面有哪些内容呢？其实主要还是数据和代码，其中数据是一些初始值的定义，代码就是一些是函数的定义。下面我们一起了解下<code>Mach-O</code>文件。</p>
+<h2 id="Mach-O文件简介"><a href="#Mach-O文件简介" class="headerlink" title="Mach-O文件简介"></a>Mach-O文件简介</h2>
+            </div>
+            <!-- read more -->
+            
+                <div class="abstract-read-more-button">
+                    <a href="/2022/02/26/%E4%BA%86%E8%A7%A3-Mach-O%E6%96%87%E4%BB%B6/">
+                        <span style="margin-right: 0.2rem;">阅读全文</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/26">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/26</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="原理篇">原理篇</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/2022/02/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-iOS-RunLoop/">
                 
                 <span class="abstract-title-text">深入理解 iOS RunLoop</span>
@@ -926,7 +972,16 @@
         
         
         
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
         
         
         
@@ -955,7 +1010,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -984,6 +1039,12 @@
             <div class="archive-year"> 2022 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2022/02/26/%E4%BA%86%E8%A7%A3-Mach-O%E6%96%87%E4%BB%B6/">了解 Mach-O文件</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/20</span>
@@ -1020,19 +1081,24 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
+            <span class="sidebar-tag-name" data-tags="音视频">
+                <span class="iconfont-archer">&#xe606;</span>
+                音视频
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="架构">
                 <span class="iconfont-archer">&#xe606;</span>
                 架构
             </span>
         
+            <span class="sidebar-tag-name" data-tags="原理篇">
+                <span class="iconfont-archer">&#xe606;</span>
+                原理篇
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="CocoaPods">
                 <span class="iconfont-archer">&#xe606;</span>
                 CocoaPods
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="音视频">
-                <span class="iconfont-archer">&#xe606;</span>
-                音视频
             </span>
         
             <span class="sidebar-tag-name" data-tags="Objective-C">
