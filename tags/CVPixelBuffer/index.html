@@ -22,7 +22,7 @@
     <meta name="description" content="记录成长，总结工作">
 <meta property="og:type" content="website">
 <meta property="og:title" content="新生代农民工的博客">
-<meta property="og:url" content="https://caohanchao.github.io/tags/Objective-C/index.html">
+<meta property="og:url" content="https://caohanchao.github.io/tags/CVPixelBuffer/index.html">
 <meta property="og:site_name" content="新生代农民工的博客">
 <meta property="og:description" content="记录成长，总结工作">
 <meta property="og:locale" content="zh_CN">
@@ -432,21 +432,19 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/02/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-iOS-RunLoop/">
+            <a class="abstract-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8B%EF%BC%89/">
                 
-                <span class="abstract-title-text">深入理解 iOS RunLoop</span>
+                <span class="abstract-title-text">简单了解 iOS CVPixelBuffer（下）</span>
             </a>
             <div class="abstract-content">
-                <blockquote>
-<p>RunLoop 是iOS中重要的一个概念，在 iOS 里它是由 CFRunLoop 实现。本章将从源码的方面梳理下RunLoop相关的概念、结构、原理。</p>
-</blockquote>
-<h1 id="浅谈RunLoop"><a href="#浅谈RunLoop" class="headerlink" title="浅谈RunLoop"></a>浅谈RunLoop</h1><h2 id="RunLoop概念："><a href="#RunLoop概念：" class="headerlink" title="RunLoop概念："></a><strong>RunLoop概念：</strong></h2><p>一般来讲，一个线程在执行任务完成后，就会结束。但是在我们的应用程序中不会直接结束，而是会在线程中构建一个消息循环机制。当有事件要去处理时保活线程，当没有事件要处理时让线程进入休眠，这个消息循环的机制就是<strong>RunLoop</strong>。</p>
-<h2 id="RunLoop和线程的关系："><a href="#RunLoop和线程的关系：" class="headerlink" title="RunLoop和线程的关系："></a><strong>RunLoop和线程的关系：</strong></h2>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在<a href="https://caohanchao.github.io/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">「简单了解 iOS CVPixelBuffer （中）」</a>中，我们了解了颜色空间<code>RGB</code>和<code>YUV</code>的区别以及相关的背景知识，最后对<code>CVPixelBuffer</code>中的<code>kCVPixelFormatType</code>相关类型进行了解读。我们已经对<code>CVPixelBuffer</code>有了初步的了解，在这篇文章中，我们将继续聊聊<code>CVPixelBuffer</code>在使用过程中的一些格式转换；</p>
+<h1 id="RGB和YUV格式转换"><a href="#RGB和YUV格式转换" class="headerlink" title="RGB和YUV格式转换"></a><code>RGB</code>和<code>YUV</code>格式转换</h1><p>在很多场景下，我们需要将不同的颜色空间进行转换，以此来解决对应的工程性问题。<br>以下是转换公式：</p>
+<h2 id="YUV-gt-RGB"><a href="#YUV-gt-RGB" class="headerlink" title="YUV -&gt; RGB"></a><code>YUV -&gt; RGB</code></h2>
             </div>
             <!-- read more -->
             
                 <div class="abstract-read-more-button">
-                    <a href="/2022/02/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-iOS-RunLoop/">
+                    <a href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8B%EF%BC%89/">
                         <span style="margin-right: 0.2rem;">阅读全文</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
@@ -454,15 +452,15 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/20">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/20</span>
+                <div class="abstract-date" title="Last updated: 2022/02/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
                 </div>
                 <!-- tags -->
                 
                     <div class= abstract-tags >
     
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Objective-C">Objective-C</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="CVPixelBuffer">CVPixelBuffer</a>
     
 </div>
 
@@ -479,21 +477,20 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/2022/02/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-iOS-Runtime/">
+            <a class="abstract-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">
                 
-                <span class="abstract-title-text">深入理解 iOS Runtime</span>
+                <span class="abstract-title-text">简单了解 iOS CVPixelBuffer（中）</span>
             </a>
             <div class="abstract-content">
-                <blockquote>
-<p>了解Runtime有助于我们理解<code>Objective-C</code>运行时系统的工作原理以及如何利用它。本章将介绍<code>NSObject</code>类以及<code>Objective-C</code>程序如何与运行时系统进行交互，如何在运行时查找对象的信息，如何将消息转发给其他对象。</p>
-</blockquote>
-<h1 id="Runtime简介"><a href="#Runtime简介" class="headerlink" title="Runtime简介"></a>Runtime简介</h1><p><code>Runtime</code> 又称运行时，是iOS系统的核心，它是一套底层的C语言API。它会将一些工作放在代码运行时才处理而并非编译时，所以有很多类和成员变量在我们编译时是不知道的，而在运行时，我们所编写的代码会转换成完整的确定的代码运行。</p>
-<h2 id="运行时交互"><a href="#运行时交互" class="headerlink" title="运行时交互"></a>运行时交互</h2><p>在<code>Objective-C</code>中与运行时系统有三个层次的交互：</p>
+                <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>在<a href="https://caohanchao.github.io/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">「简单了解 iOS CVPixelBuffer （上）」</a>)中，我们了解了<code>CVPixelBuffer</code>如何创建、修改、以及检查CVPixelBuffer相关的参数。在上篇文末我们有讲到在这篇文章中，我们将了解颜色空间RGB和YUV的区别以及相关的背景知识，然后回过头来再看<code>CVPixelBuffer</code>中的<code>kCVPixelFormatType</code>相关的类型。</p>
+<p>相信大家对于RGB都不陌生吧，那么YUV大家是否了解呢，它为我们做了些什么？</p>
+<p>在开篇我先提出一个问题：<strong>为什么要使用YUV呢？</strong>  这个问题在我们了解了颜色空间之后，相信大家心中就已经有了答案。接下来开始我们的正文。</p>
+<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1>
             </div>
             <!-- read more -->
             
                 <div class="abstract-read-more-button">
-                    <a href="/2022/02/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-iOS-Runtime/">
+                    <a href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">
                         <span style="margin-right: 0.2rem;">阅读全文</span>
                         <i class="fas fa-angle-right"></i>
                     </a>
@@ -501,15 +498,60 @@
             
             <div class="abstract-post-meta">
                 <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/19">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/19</span>
+                <div class="abstract-date" title="Last updated: 2022/02/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
                 </div>
                 <!-- tags -->
                 
                     <div class= abstract-tags >
     
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Objective-C">Objective-C</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="CVPixelBuffer">CVPixelBuffer</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">
+                
+                <span class="abstract-title-text">简单了解 iOS CVPixelBuffer (上)</span>
+            </a>
+            <div class="abstract-content">
+                <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>在iOS中，我们会常常看到 <code>CVPixelBufferRef</code> 这个类型，最常见到的场景是在Camera 采集的时候，返回的数据中有一个<code>CMSampleBufferRef</code>，而每个<code>CMSampleBufferRef</code>则包含一个 <code>CVPixelBufferRef</code>，在视频硬解码的返回数据里也是一个 <code>CVPixelBufferRef</code>（里面包含了所有的压缩的图片信息）。在了解了<code>CVPixelBufferRef</code>之后，我们将能够掌握并且运用<code>CVPixelBufferRef</code>的使用；</p>
+<p>本篇我们主要熟悉下<code>CVPixelBuffer</code>的使用；</p>
+<h1 id="CVPixelBuffer-简介"><a href="#CVPixelBuffer-简介" class="headerlink" title="CVPixelBuffer 简介"></a>CVPixelBuffer 简介</h1><p><code>CVPixelBuffer</code>：核心视频像素缓冲区是在主存储器中保存像素的图像缓冲区。生成帧、压缩或解压缩视频或使用 <code>Core Image</code> 的应用程序都可以使用 <code>CVPixelBuffer</code>。</p>
+            </div>
+            <!-- read more -->
+            
+                <div class="abstract-read-more-button">
+                    <a href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">
+                        <span style="margin-right: 0.2rem;">阅读全文</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2022/02/28">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/02/27</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="CVPixelBuffer">CVPixelBuffer</a>
     
 </div>
 
