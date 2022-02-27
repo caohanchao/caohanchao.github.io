@@ -429,6 +429,7 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">
@@ -436,9 +437,19 @@
                 <span class="abstract-title-text">简单了解 iOS CVPixelBuffer（中）</span>
             </a>
             <div class="abstract-content">
-                
+                <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>在<a href="https://caohanchao.github.io/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">「简单了解 iOS CVPixelBuffer （上）」</a>)中，我们了解了<code>CVPixelBuffer</code>如何创建、修改、以及检查CVPixelBuffer相关的参数。在上篇文末我们有讲到在这篇文章中，我们将了解颜色空间RGB和YUV的区别以及相关的背景知识，然后回过头来再看<code>CVPixelBuffer</code>中的<code>kCVPixelFormatType</code>相关的类型。</p>
+<p>相信大家对于RGB都不陌生吧，那么YUV大家是否了解呢，它为我们做了些什么？</p>
+<p>在开篇我先提出一个问题：<strong>为什么要使用YUV呢？</strong>  这个问题在我们了解了颜色空间之后，相信大家心中就已经有了答案。接下来开始我们的正文。</p>
+<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1>
             </div>
             <!-- read more -->
+            
+                <div class="abstract-read-more-button">
+                    <a href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">
+                        <span style="margin-right: 0.2rem;">阅读全文</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
             
             <div class="abstract-post-meta">
                 <!-- date -->
@@ -456,16 +467,26 @@
         
         
             
+            
         
         <article class="index-post">
             <a class="abstract-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">
                 
-                <span class="abstract-title-text">简单了解 iOS CVPixelBuffer</span>
+                <span class="abstract-title-text">简单了解 iOS CVPixelBuffer (上)</span>
             </a>
             <div class="abstract-content">
-                
+                <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>在iOS中，我们会常常看到 <code>CVPixelBufferRef</code> 这个类型，最常见到的场景是在Camera 采集的时候，返回的数据中有一个<code>CMSampleBufferRef</code>，而每个<code>CMSampleBufferRef</code>则包含一个 <code>CVPixelBufferRef</code>，在视频硬解码的返回数据里也是一个 <code>CVPixelBufferRef</code>（里面包含了所有的压缩的图片信息）。在了解了<code>CVPixelBufferRef</code>之后，我们将能够掌握并且运用<code>CVPixelBufferRef</code>的使用；</p>
+<p>本篇我们主要熟悉下<code>CVPixelBuffer</code>的使用；</p>
+<h1 id="CVPixelBuffer-简介"><a href="#CVPixelBuffer-简介" class="headerlink" title="CVPixelBuffer 简介"></a>CVPixelBuffer 简介</h1><p><code>CVPixelBuffer</code>：核心视频像素缓冲区是在主存储器中保存像素的图像缓冲区。生成帧、压缩或解压缩视频或使用 <code>Core Image</code> 的应用程序都可以使用 <code>CVPixelBuffer</code>。</p>
             </div>
             <!-- read more -->
+            
+                <div class="abstract-read-more-button">
+                    <a href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">
+                        <span style="margin-right: 0.2rem;">阅读全文</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
             
             <div class="abstract-post-meta">
                 <!-- date -->
@@ -1045,10 +1066,6 @@
         
         
         
-        
-        
-        
-        
     
     
     
@@ -1065,6 +1082,21 @@
     
         
             
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/2022/02/27/CocoaPods%E4%B8%ADpodsepc%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%AF%A6%E6%83%85/">CocoaPods中podsepc文件设置详情</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
             
             <div class="archive-year"> Invalid date </div>
             <ul class="year-list">
@@ -1087,19 +1119,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/CocoaPods%E4%B8%ADpodsepc%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%AF%A6%E6%83%85/">CocoaPods中podsepc文件设置详情</a>
+            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">简单了解 iOS CVPixelBuffer (上)</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
             <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">简单了解 iOS CVPixelBuffer（中）</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">简单了解 iOS CVPixelBuffer</a>
         </li>
     
         
