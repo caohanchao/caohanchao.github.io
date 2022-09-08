@@ -19,18 +19,25 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="记录成长，总结工作">
-    <meta name="description" content="记录成长，总结工作">
+    <meta name="description" content="前言在过去iOS页面布局较为传统，大多数人使用Frame或者AutoLayout来布局，在iOS9以后，引入了UIStackView。UIStackView是用于线性布局的控件，可以自动管理子视图布局，自动填充。它借鉴了前端的布局算法Flexbox，可以简便地实现各种页面布局。 UIStackView虽然已经不是新控件了，但还是有很多同学并没有使用起来。有时需要修改别人的代码看到乱糟糟的布局代码就">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用UIStackView来简化iOS的界面布局">
 <meta property="og:url" content="https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/index.html">
 <meta property="og:site_name" content="新生代农民工的博客">
-<meta property="og:description" content="记录成长，总结工作">
+<meta property="og:description" content="前言在过去iOS页面布局较为传统，大多数人使用Frame或者AutoLayout来布局，在iOS9以后，引入了UIStackView。UIStackView是用于线性布局的控件，可以自动管理子视图布局，自动填充。它借鉴了前端的布局算法Flexbox，可以简便地实现各种页面布局。 UIStackView虽然已经不是新控件了，但还是有很多同学并没有使用起来。有时需要修改别人的代码看到乱糟糟的布局代码就">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d17a65c8ac514686a1d67d991bab1c3e~tplv-k3u1fbpfcp-watermark.image?">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/624dd195271248608266d67447363309~tplv-k3u1fbpfcp-watermark.image?">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2bb7b6cce6f14558943be9b7ff530802~tplv-k3u1fbpfcp-watermark.image?">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f769c22805d24941a87891a2d706abfb~tplv-k3u1fbpfcp-watermark.image?">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7836230962e344aea94006f0395eb50f~tplv-k3u1fbpfcp-watermark.image?">
 <meta property="article:published_time" content="2022-09-08T14:26:56.000Z">
-<meta property="article:modified_time" content="2022-09-08T14:26:56.794Z">
+<meta property="article:modified_time" content="2022-09-08T14:31:54.110Z">
 <meta property="article:author" content="新生代农民工">
-<meta property="article:tag" content="Objective-C,swift">
+<meta property="article:tag" content="UIStackView">
+<meta property="article:tag" content="布局">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d17a65c8ac514686a1d67d991bab1c3e~tplv-k3u1fbpfcp-watermark.image?">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
@@ -323,9 +330,19 @@
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="UIStackView">UIStackView</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="布局">布局</a>
+    
+</div>
+
+                
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">0</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -486,7 +503,71 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在过去<code>iOS</code>页面布局较为传统，大多数人使用<code>Frame</code>或者<code>AutoLayout</code>来布局，在<code>iOS9</code>以后，引入了<code>UIStackView</code>。<code>UIStackView</code>是用于线性布局的控件，可以自动管理子视图布局，自动填充。它借鉴了前端的布局算法<code>Flexbox</code>，可以简便地实现各种页面布局。</p>
+<p><code>UIStackView</code>虽然已经不是新控件了，但还是有很多同学并没有使用起来。有时需要修改别人的代码看到乱糟糟的布局代码就有很多槽点。所以这也是写这篇文章的目的所在，真的推荐大家使用StackView，可以让你事半功倍，省下来的时间摸鱼不香嘛。</p>
+<p>回归正题，不管是使用<code>Frame</code>或者<code>AutoLayout</code>来布局，我们都需要对所有的控件的位置、大小进行设置，<code>Frame</code>需要指定位置布局，<code>AutoLayout</code>需要指定约束布局；而<code>UIStackView</code>布局方式凸显它的优势在于不需要设置排列视图（即子视图）的位置，大小（不是必须的），而是通过自身的排列、分布方式自动完成布局。对比起来，使用<code>UIStackView</code>更高效，我们可以通过嵌套<code>UIStackView</code>快速完成各式各样的布局。</p>
+<h1 id="UIStackView布局思想"><a href="#UIStackView布局思想" class="headerlink" title="UIStackView布局思想"></a>UIStackView布局思想</h1><p><code>UIStackView</code>的初衷就是为了简化的界面布局，适用于列或行中布局视图集合。</p>
+<p><code>StackView</code>使用自动布局(<code>AutoLayout</code>)来定位和设置其排列视图的大小。<code>StackView</code>将第一个和最后一个排列的视图与其沿堆栈轴的边缘对齐。<strong>在水平堆栈中</strong>，这意味着第一个排列视图的前缘被固定在<code>StackView</code>的前缘上，而最后一个排列视图的后缘被固定在<code>StackView</code>的后缘上；<strong>在垂直堆栈中</strong>，顶部和底部边缘分别固定在堆栈的顶部和底部边缘上。</p>
+<p><code>StackView</code>会根据自身的布局规则进行填充排列视图。</p>
+<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d17a65c8ac514686a1d67d991bab1c3e~tplv-k3u1fbpfcp-watermark.image?" alt="A6967C3C-B348-4553-808C-2674285EAEBD.png" width="100%" />
+
+<h2 id="distribution："><a href="#distribution：" class="headerlink" title="distribution："></a>distribution：</h2><p><code>distribution</code> 即排列方式：</p>
+<ul>
+<li><code>fill</code>根据抗拉伸、压缩优先级填充（默认拉伸第一个排列视图）</li>
+<li><code>fillEqually</code>在排列方向上的填充大小相同（即横向布局宽度相同，纵向布局高度相同）</li>
+<li><code>fillProportionally</code>根据排列视图的大小按比例填充</li>
+<li><code>equalSpacing</code>均匀地填充视图之间的间距</li>
+<li><code>equalCentering</code>根据排列视图中心点之间的相同间隔填充</li>
+</ul>
+<h2 id="alignment："><a href="#alignment：" class="headerlink" title="alignment："></a>alignment：</h2><p><code>alignment</code>即对齐方式：(<strong>垂直于排列方向</strong>)</p>
+<ul>
+<li><code>fill</code>填充排列视图到<code>StackView</code>的可用空间</li>
+<li><code>top</code>以<code>StackView</code>的顶部排列（与之相似的是<code>leading</code>）</li>
+<li><code>bottom</code>以<code>StackView</code>的尾部排列（与之相似的是<code>trailing</code>）</li>
+<li><code>center</code>以<code>StackView</code>的中间排列</li>
+<li><code>firstBaseline</code>以第一个基准线排列</li>
+<li><code>lastBaseline</code>以最后一个的基准线排列</li>
+</ul>
+<p>如需设置排列视图之间的间距可以通过设置<code>space</code>属性，若是排列视图之间的间距不同，可以使用方法指定某个排列视图的间距（此方法iOS11以上使用），或者使用一个无用的view插入在视图之间替代间隙，此view仅作为间距使用（使用<code>xib</code>、<code>Storyboard</code>会经常使用此类方法，可以参照）。</p>
+<p>当你真的了解UIStackView的这些布局思想之后，你就会知道它能帮你解决很多繁琐的布局。（如一个多变的底部操作栏、一行大小各异的控件等等）</p>
+<p>从上面的布局思想中，不难看出，其实我们仅需要确定<code>StackView</code>的排列方向，以及排列方式、对其方式，就能大体上对整个排列视图初步的布局，而后在根据不同的视图进行大小上的调整以及间距的调整即可。</p>
+<p>使用<code>UIStackView</code>来自动布局子视图，你只需要每个子视图关注自身的大小即可。</p>
+<p>以此类操作栏为例，举个栗子🌰：</p>
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/624dd195271248608266d67447363309~tplv-k3u1fbpfcp-watermark.image?" alt="截屏2022-08-31 00.09.43.png" width="50%" />
+
+
+<img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2bb7b6cce6f14558943be9b7ff530802~tplv-k3u1fbpfcp-watermark.image?" alt="截屏2022-08-31 00.19.43.png" width="50%" />
+
+
+<p>先说说我们常用的布局方式，可能还是会有一部分人会选择<code>Frame</code>布局，或者<code>AutoLayout</code>布局。</p>
+<p><strong>但此类UI在设计之初，通常会有很多状态、特征，每一种状态下，控件都会变化。</strong></p>
+<p>那么<code>Frame</code>布局在这种布局容易变化的情况下，就显得有非常的繁琐，布局代码非常的多，并且状态很多的时候不好维护。<br>同样<code>AutoLayout</code>也是如此，需要写很多的更新布局约束。</p>
+<p>这个时候，借用<code>UIStackView</code>的思想，我们可以很简单的实现这个布局。每个控件只关注自身大小，不会对其他的空间产生依赖关系，在需要时显示出来，不需要时隐藏起来。</p>
+<p>我们先以文本输入入口“<strong>说点什么</strong>”小试牛刀。</p>
+<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f769c22805d24941a87891a2d706abfb~tplv-k3u1fbpfcp-watermark.image?" alt="UIStackView.png" width="90%" />
+
+
+<p>下面就是用StackView布局的效果。<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7836230962e344aea94006f0395eb50f~tplv-k3u1fbpfcp-watermark.image?" alt="截屏2022-09-05 22.46.35.png" width="100%" /></p>
+<p>这里我是使用的xib结合StackView。如果我们平时使用的代码布局，也可以使用代码结合StackView布局，这样也会减少很多代码量，可以自行脑补。</p>
+<h1 id="UIStackView用法"><a href="#UIStackView用法" class="headerlink" title="UIStackView用法"></a>UIStackView用法</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>与其他控件一样的初始化方式；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;</span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以选择专属的初始化方式；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithArrangedSubviews:(NSArray&lt;__kindof UIView *&gt; *)views;</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加、删除子视图"><a href="#添加、删除子视图" class="headerlink" title="添加、删除子视图"></a>添加、删除子视图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)addArrangedSubview:(UIView *)view;</span><br><span class="line">- (void)removeArrangedSubview:(UIView *)view;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="排列方向"><a href="#排列方向" class="headerlink" title="排列方向"></a>排列方向</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic) UILayoutConstraintAxis axis;</span><br><span class="line"></span><br><span class="line">typedef NS_ENUM(NSInteger, UILayoutConstraintAxis) &#123;</span><br><span class="line">    UILayoutConstraintAxisHorizontal = 0, // 水平方向</span><br><span class="line">    UILayoutConstraintAxisVertical = 1    // 垂直方向</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="布局方式"><a href="#布局方式" class="headerlink" title="布局方式"></a>布局方式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic) UIStackViewDistribution distribution;</span><br><span class="line"></span><br><span class="line">typedef NS_ENUM(NSInteger, UIStackViewDistribution) &#123;</span><br><span class="line">    UIStackViewDistributionFill = 0, //子视图填充满指定方向，优先拉伸第一个控件</span><br><span class="line">    UIStackViewDistributionFillEqually, //每个子视图填充大小相等，</span><br><span class="line">    UIStackViewDistributionFillProportionally, //根据每个子视图里面内容的尺寸来进行填充操作</span><br><span class="line">    UIStackViewDistributionEqualSpacing, //每个子视图之间的间距相等</span><br><span class="line">    UIStackViewDistributionEqualCentering, //每个子视图中心直接的间距相等</span><br><span class="line">&#125; API_AVAILABLE(ios(9.0));</span><br></pre></td></tr></table></figure>
+
+<h2 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic) UIStackViewAlignment alignment;</span><br><span class="line"></span><br><span class="line">typedef NS_ENUM(NSInteger, UIStackViewAlignment) &#123; </span><br><span class="line">    UIStackViewAlignmentFill, //水平:subView的上下和StackView的上下边距 相等   垂直: subView的左右边距和 StackView的所有相等 </span><br><span class="line">    UIStackViewAlignmentLeading,//垂直有效 ：左对齐</span><br><span class="line">    UIStackViewAlignmentTop = UIStackViewAlignmentLeading, // 水平有效 上对齐</span><br><span class="line">    UIStackViewAlignmentFirstBaseline,//水平有效，第一行基准线对齐。</span><br><span class="line">    UIStackViewAlignmentCenter, //中心基准线对齐 1.水平 高度中点对齐 2.垂直：宽度中点对齐</span><br><span class="line">    UIStackViewAlignmentTrailing,  //垂直有效，右边界对齐。</span><br><span class="line">    UIStackViewAlignmentBottom = UIStackViewAlignmentTrailing,// 水平有效 ，下边界对齐。</span><br><span class="line">    UIStackViewAlignmentLastBaseline,//水平有效，最后一行基准线对齐。</span><br><span class="line">&#125; API_AVAILABLE(9_0);</span><br></pre></td></tr></table></figure>
+
+<h2 id="间距"><a href="#间距" class="headerlink" title="间距"></a>间距</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic) NSInteger space; //排列视图相邻边缘之间的距离。</span><br></pre></td></tr></table></figure>
+
+
     </article>
     <!-- license -->
     
@@ -494,7 +575,7 @@
             <p>原文作者：<a href="https://caohanchao.github.io">新生代农民工</a>
             <p>原文链接：<a href="https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/">https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/</a>
             <p>发表日期：<a href="https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/">September 8th 2022, 10:26:56 pm</a>
-            <p>更新日期：<a href="https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/">September 8th 2022, 10:26:56 pm</a>
+            <p>更新日期：<a href="https://caohanchao.github.io/2022/09/08/%E4%BD%BF%E7%94%A8UIStackView%E6%9D%A5%E7%AE%80%E5%8C%96iOS%E7%9A%84%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80/">September 8th 2022, 10:31:54 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -642,7 +723,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UIStackView%E5%B8%83%E5%B1%80%E6%80%9D%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">UIStackView布局思想</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#distribution%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">distribution：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#alignment%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">alignment：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UIStackView%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">UIStackView用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E5%88%A0%E9%99%A4%E5%AD%90%E8%A7%86%E5%9B%BE"><span class="toc-number">3.2.</span> <span class="toc-text">添加、删除子视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%88%97%E6%96%B9%E5%90%91"><span class="toc-number">3.3.</span> <span class="toc-text">排列方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F"><span class="toc-number">3.4.</span> <span class="toc-text">布局方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F"><span class="toc-number">3.5.</span> <span class="toc-text">对齐方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%B4%E8%B7%9D"><span class="toc-number">3.6.</span> <span class="toc-text">间距</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -788,10 +869,6 @@
         
         
         
-        
-        
-        
-        
     
     
     
@@ -836,13 +913,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">简单了解 iOS CVPixelBuffer (上)</a>
+            <a class="archive-post-title" href="/2022/02/27/CocoaPods%E4%B8%ADpodsepc%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%AF%A6%E6%83%85/">CocoaPods中podsepc文件设置详情</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">简单了解 iOS CVPixelBuffer（中）</a>
+            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8A%EF%BC%89/">简单了解 iOS CVPixelBuffer (上)</a>
         </li>
     
         
@@ -854,7 +931,7 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/CocoaPods%E4%B8%ADpodsepc%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%AF%A6%E6%83%85/">CocoaPods中podsepc文件设置详情</a>
+            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">简单了解 iOS CVPixelBuffer（中）</a>
         </li>
     
         
@@ -905,14 +982,14 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
+            <span class="sidebar-tag-name" data-tags="CocoaPods">
+                <span class="iconfont-archer">&#xe606;</span>
+                CocoaPods
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="音视频">
                 <span class="iconfont-archer">&#xe606;</span>
                 音视频
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="原理篇">
-                <span class="iconfont-archer">&#xe606;</span>
-                原理篇
             </span>
         
             <span class="sidebar-tag-name" data-tags="架构">
@@ -920,9 +997,19 @@
                 架构
             </span>
         
-            <span class="sidebar-tag-name" data-tags="CocoaPods">
+            <span class="sidebar-tag-name" data-tags="原理篇">
                 <span class="iconfont-archer">&#xe606;</span>
-                CocoaPods
+                原理篇
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="UIStackView">
+                <span class="iconfont-archer">&#xe606;</span>
+                UIStackView
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="布局">
+                <span class="iconfont-archer">&#xe606;</span>
+                布局
             </span>
         
             <span class="sidebar-tag-name" data-tags="Objective-C">
