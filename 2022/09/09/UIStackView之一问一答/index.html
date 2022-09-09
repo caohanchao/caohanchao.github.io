@@ -26,15 +26,15 @@
 <meta property="og:site_name" content="新生代农民工的博客">
 <meta property="og:description" content="前言此篇文章作为在使用UIStackView前的一些答疑，既是扫盲篇，也是实用篇。以下会讲述一些实用的案例，目的就是让更多的人拥抱UIStackView。同时欢迎小伙伴通过评论区讲讲使用StackView遇到的问题。 答疑排列视图间距大小不一问：排列视图间距大小不一，可以用UIStackView吗？答：当然可以用，UIStackView虽然有space属性，但是适用于所有的排列视图，如果想要指定某">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/caohanchao/FigureBed@main/image/stack-%E9%97%B4%E8%B7%9D%E4%B8%8D%E5%90%8C.png">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/611f860e7c1040b982616dc51ddf82af~tplv-k3u1fbpfcp-watermark.image">
 <meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cae9641a24604e1188a5f50c92e3dfe0~tplv-k3u1fbpfcp-watermark.image">
 <meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a239978f994d259d5958652ac7d9f8~tplv-k3u1fbpfcp-watermark.image">
 <meta property="article:published_time" content="2022-09-09T12:24:29.000Z">
-<meta property="article:modified_time" content="2022-09-09T14:24:57.203Z">
+<meta property="article:modified_time" content="2022-09-09T14:39:47.467Z">
 <meta property="article:author" content="新生代农民工">
 <meta property="article:tag" content="Objective-C,swift">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/caohanchao/FigureBed@main/image/stack-%E9%97%B4%E8%B7%9D%E4%B8%8D%E5%90%8C.png">
+<meta name="twitter:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/611f860e7c1040b982616dc51ddf82af~tplv-k3u1fbpfcp-watermark.image">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/favicon.ico">
@@ -496,8 +496,12 @@
 <li>使用 <code>- (void)setCustomSpacing:(CGFloat)spacing afterView:(UIView *)arrangedSubview API_AVAILABLE(ios(11.0),tvos(11.0));</code>方法，不过这个方法有版本的限制。</li>
 <li>使用一个UIView进行填充；即在需要间隙的位置插入一个空的view，并设置好其宽度或高度来充当两个排列视图的间距。</li>
 </ul>
-<h2 id="排列视图对齐位置不一致"><a href="#排列视图对齐位置不一致" class="headerlink" title="排列视图对齐位置不一致"></a>排列视图对齐位置不一致</h2><p><strong>问：排列视图的对齐位置不一致，如何使用UIStackView？</strong><br>答：我们可以选择一种合适的对齐方式保证适用于绝大多数排列视图，剩下的视图使用UIView进行封装，然后在View中进行约束布局。<br><img src="https://cdn.jsdelivr.net/gh/caohanchao/FigureBed@main/image/stack-%E9%97%B4%E8%B7%9D%E4%B8%8D%E5%90%8C.png" alt="stack-间距不同"></p>
-<h2 id="排列视图大小不一致"><a href="#排列视图大小不一致" class="headerlink" title="排列视图大小不一致"></a>排列视图大小不一致</h2><p><strong>问：排列视图的大小不一致，可以用UIStackView吗？</strong><br>答：可以的，UIStackView中的排列视图不需要设置位置，至于尺寸大小可以根据自身需要设置。（设置方式<code>AutoLayout</code>）<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cae9641a24604e1188a5f50c92e3dfe0~tplv-k3u1fbpfcp-watermark.image" alt="截屏2022-09-07 23.08.00.png"></p>
+<p> <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/611f860e7c1040b982616dc51ddf82af~tplv-k3u1fbpfcp-watermark.image" alt="截屏2022-09-07 22.49.43.png"></p>
+<h2 id="排列视图对齐位置不一致"><a href="#排列视图对齐位置不一致" class="headerlink" title="排列视图对齐位置不一致"></a>排列视图对齐位置不一致</h2><p><strong>问：排列视图的对齐位置不一致，如何使用UIStackView？</strong><br>答：我们可以选择一种合适的对齐方式保证适用于绝大多数排列视图，剩下的视图使用UIView进行封装，然后在View中进行约束布局。<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cae9641a24604e1188a5f50c92e3dfe0~tplv-k3u1fbpfcp-watermark.image" alt="截屏2022-09-07 23.08.00.png"></p>
+<!-- ![stack-间距不同](https://cdn.jsdelivr.net/gh/caohanchao/FigureBed@main/image/stack-间距不同.png) -->
+
+
+<h2 id="排列视图大小不一致"><a href="#排列视图大小不一致" class="headerlink" title="排列视图大小不一致"></a>排列视图大小不一致</h2><p><strong>问：排列视图的大小不一致，可以用UIStackView吗？</strong><br>答：可以的，UIStackView中的排列视图不需要设置位置，至于尺寸大小可以根据自身需要设置。（设置方式<code>AutoLayout</code>）</p>
 <h2 id="灵活多变的UI设计"><a href="#灵活多变的UI设计" class="headerlink" title="灵活多变的UI设计"></a>灵活多变的UI设计</h2><p><strong>问：多变的UI设计适合使用UIStackView吗？</strong><br>答：再合适不过了，为什么这么说呢，虽然通过<code>AutoLayout</code>可以自适应，来解决灵活多变的UI布局，但是这会有繁琐的代码来控制。而通过使用<code>UIStackView</code>，我们仅添加一次排列视图，而后可以通过控制排列视图的显示或隐藏<code>(hidden)</code>就能使<code>UIStackView</code>重新布局。</p>
 <h2 id="列表可用？"><a href="#列表可用？" class="headerlink" title="列表可用？"></a>列表可用？</h2><p><strong>问：UIStackView可以用于列表布局吗？</strong><br>答：可以，使用UIStackView可以快捷的布局简单列表，相比较UITableView较为简单，使用UITableView往往需要设置代理，实现代理等。<br>具体做法：一般采用<code>UIScrollView + UIStackView</code>，ScrollView控制滚动，StackView管理内容。<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a239978f994d259d5958652ac7d9f8~tplv-k3u1fbpfcp-watermark.image" alt="2022-09-08 18-47-16.2022-09-08 18_48_45.gif"></p>
 <h2 id="拉伸、压缩"><a href="#拉伸、压缩" class="headerlink" title="拉伸、压缩"></a>拉伸、压缩</h2><p><strong>问：听说UIStackView可以自适应排列视图，那么排列视图如果有拉伸或者压缩的需求可以使用UIStackView吗？</strong><br>答：可以，UIStackView会优先根据**抗拉伸优先级<code>Content Hugging Priority</code><strong>（优先级越高，越不容易被拉伸）、</strong>抗压缩优先级<code>Content Compression Resistance Priority</code>**（优先级越高，越不容易被压缩）去约束排列视图，并不会和StackView布局相冲突。</p>
@@ -511,7 +515,7 @@
             <p>原文作者：<a href="https://caohanchao.github.io">新生代农民工</a>
             <p>原文链接：<a href="https://caohanchao.github.io/2022/09/09/UIStackView%E4%B9%8B%E4%B8%80%E9%97%AE%E4%B8%80%E7%AD%94/">https://caohanchao.github.io/2022/09/09/UIStackView%E4%B9%8B%E4%B8%80%E9%97%AE%E4%B8%80%E7%AD%94/</a>
             <p>发表日期：<a href="https://caohanchao.github.io/2022/09/09/UIStackView%E4%B9%8B%E4%B8%80%E9%97%AE%E4%B8%80%E7%AD%94/">September 9th 2022, 8:24:29 pm</a>
-            <p>更新日期：<a href="https://caohanchao.github.io/2022/09/09/UIStackView%E4%B9%8B%E4%B8%80%E9%97%AE%E4%B8%80%E7%AD%94/">September 9th 2022, 10:24:57 pm</a>
+            <p>更新日期：<a href="https://caohanchao.github.io/2022/09/09/UIStackView%E4%B9%8B%E4%B8%80%E9%97%AE%E4%B8%80%E7%AD%94/">September 9th 2022, 10:39:47 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -816,8 +820,6 @@
         
         
         
-        
-        
     
     
     
@@ -889,13 +891,13 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">简单了解 iOS CVPixelBuffer（中）</a>
+            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8B%EF%BC%89/">简单了解 iOS CVPixelBuffer（下）</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">02/27</span>
-            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%8B%EF%BC%89/">简单了解 iOS CVPixelBuffer（下）</a>
+            <a class="archive-post-title" href="/2022/02/27/%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3-iOS-CVPixelBuffer%EF%BC%88%E4%B8%AD%EF%BC%89/">简单了解 iOS CVPixelBuffer（中）</a>
         </li>
     
         
@@ -951,14 +953,14 @@
                 CocoaPods
             </span>
         
-            <span class="sidebar-tag-name" data-tags="音视频">
-                <span class="iconfont-archer">&#xe606;</span>
-                音视频
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="架构">
                 <span class="iconfont-archer">&#xe606;</span>
                 架构
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="音视频">
+                <span class="iconfont-archer">&#xe606;</span>
+                音视频
             </span>
         
             <span class="sidebar-tag-name" data-tags="原理篇">
